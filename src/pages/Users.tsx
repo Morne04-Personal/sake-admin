@@ -7,7 +7,7 @@ import { ColorfulDivider } from "@/components/ui/colorful-divider";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { UserForm, UserFormData } from "@/components/forms/UserForm";
-import { Plus, Edit, Trash2, Search, Users } from "lucide-react";
+import { Plus, Edit, Trash2, Search, Users as UsersIcon } from "lucide-react";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -99,7 +99,7 @@ const Users = () => {
           className="sake-button-primary flex items-center"
           onClick={() => setAddUserOpen(true)}
         >
-          <Plus size={16} className="mr-1" /> Add User
+          <Plus className="mr-1" /> Add User
         </Button>
       </PageHeader>
       <ColorfulDivider className="mb-8" />
@@ -116,7 +116,7 @@ const Users = () => {
           />
         </div>
         <div className="flex items-center gap-2 text-gray-500 text-sm">
-          <Users size={16} className="mr-1" />
+          <UsersIcon className="mr-1" />
           <span>
             Showing <span className="font-medium">{filteredUsers.length}</span> of{" "}
             <span className="font-medium">{users.length}</span> users
