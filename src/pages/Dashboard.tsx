@@ -223,7 +223,7 @@ const Dashboard = () => {
         </Card>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+      <div className="mb-8">
         <Card>
           <CardHeader>
             <CardTitle className="text-lg">System Notifications</CardTitle>
