@@ -1,4 +1,3 @@
-
 // Mock data for the SAKEwinkel admin dashboard
 
 // Helper function to generate random dates within a range
@@ -797,6 +796,260 @@ export const notifications = [
   }
 ];
 
+// Mock Orders
+export const orders = [
+  {
+    id: 1,
+    orderNumber: "ORD-2023-001",
+    userId: 6,
+    supplierId: 1,
+    createdAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1).toISOString(),
+    updatedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 1).toISOString(),
+    status: "delivered",
+    total: 450.00,
+    paymentMethod: "credit_card",
+    paymentStatus: "paid",
+    shippingAddress: {
+      street: "42 Beach Road",
+      city: "Cape Town",
+      province: "Western Cape",
+      postalCode: "8005"
+    },
+    items: [
+      {
+        productId: 1,
+        quantity: 3,
+        price: 150.00
+      }
+    ]
+  },
+  {
+    id: 2,
+    orderNumber: "ORD-2023-002",
+    userId: 8,
+    supplierId: 2,
+    createdAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 2).toISOString(),
+    updatedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 2).toISOString(),
+    status: "shipped",
+    total: 220.00,
+    paymentMethod: "credit_card",
+    paymentStatus: "paid",
+    shippingAddress: {
+      street: "12 Main Road",
+      city: "Johannesburg",
+      province: "Gauteng",
+      postalCode: "2196"
+    },
+    items: [
+      {
+        productId: 2,
+        quantity: 1,
+        price: 220.00
+      }
+    ]
+  },
+  {
+    id: 3,
+    orderNumber: "ORD-2023-003",
+    userId: 9,
+    supplierId: 3,
+    createdAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 3).toISOString(),
+    updatedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 3).toISOString(),
+    status: "processing",
+    total: 360.00,
+    paymentMethod: "bank_transfer",
+    paymentStatus: "pending",
+    shippingAddress: {
+      street: "35 Hill Street",
+      city: "Durban",
+      province: "KwaZulu-Natal",
+      postalCode: "4001"
+    },
+    items: [
+      {
+        productId: 3,
+        quantity: 2,
+        price: 180.00
+      }
+    ]
+  },
+  {
+    id: 4,
+    orderNumber: "ORD-2023-004",
+    userId: 6,
+    supplierId: 4,
+    createdAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5).toISOString(),
+    updatedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 4).toISOString(),
+    status: "delivered",
+    total: 260.00,
+    paymentMethod: "credit_card",
+    paymentStatus: "paid",
+    shippingAddress: {
+      street: "42 Beach Road",
+      city: "Cape Town",
+      province: "Western Cape",
+      postalCode: "8005"
+    },
+    items: [
+      {
+        productId: 4,
+        quantity: 2,
+        price: 130.00
+      }
+    ]
+  },
+  {
+    id: 5,
+    orderNumber: "ORD-2023-005",
+    userId: 8,
+    supplierId: 5,
+    createdAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6).toISOString(),
+    updatedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6).toISOString(),
+    status: "delivered",
+    total: 450.00,
+    paymentMethod: "credit_card",
+    paymentStatus: "paid",
+    shippingAddress: {
+      street: "12 Main Road",
+      city: "Johannesburg",
+      province: "Gauteng",
+      postalCode: "2196"
+    },
+    items: [
+      {
+        productId: 5,
+        quantity: 1,
+        price: 450.00
+      }
+    ]
+  },
+  {
+    id: 6,
+    orderNumber: "ORD-2023-006",
+    userId: 9,
+    supplierId: 6,
+    createdAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7).toISOString(),
+    updatedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7).toISOString(),
+    status: "cancelled",
+    total: 0,
+    paymentMethod: "credit_card",
+    paymentStatus: "refunded",
+    shippingAddress: {
+      street: "35 Hill Street",
+      city: "Durban",
+      province: "KwaZulu-Natal",
+      postalCode: "4001"
+    },
+    items: [
+      {
+        productId: 6,
+        quantity: 1,
+        price: 160.00
+      }
+    ]
+  },
+  {
+    id: 7,
+    orderNumber: "ORD-2023-007",
+    userId: 6,
+    supplierId: 7,
+    createdAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 10).toISOString(),
+    updatedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 8).toISOString(),
+    status: "delivered",
+    total: 210.00,
+    paymentMethod: "credit_card",
+    paymentStatus: "paid",
+    shippingAddress: {
+      street: "42 Beach Road",
+      city: "Cape Town",
+      province: "Western Cape",
+      postalCode: "8005"
+    },
+    items: [
+      {
+        productId: 7,
+        quantity: 1,
+        price: 210.00
+      }
+    ]
+  },
+  {
+    id: 8,
+    orderNumber: "ORD-2023-008",
+    userId: 8,
+    supplierId: 10,
+    createdAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 12).toISOString(),
+    updatedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 11).toISOString(),
+    status: "delivered",
+    total: 320.00,
+    paymentMethod: "credit_card",
+    paymentStatus: "paid",
+    shippingAddress: {
+      street: "12 Main Road",
+      city: "Johannesburg",
+      province: "Gauteng",
+      postalCode: "2196"
+    },
+    items: [
+      {
+        productId: 10,
+        quantity: 1,
+        price: 320.00
+      }
+    ]
+  },
+  {
+    id: 9,
+    orderNumber: "ORD-2023-009",
+    userId: 9,
+    supplierId: 9,
+    createdAt: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString(),
+    updatedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate()).toISOString(),
+    status: "pending",
+    total: 195.00,
+    paymentMethod: "bank_transfer",
+    paymentStatus: "pending",
+    shippingAddress: {
+      street: "35 Hill Street",
+      city: "Durban",
+      province: "KwaZulu-Natal",
+      postalCode: "4001"
+    },
+    items: [
+      {
+        productId: 9,
+        quantity: 1,
+        price: 195.00
+      }
+    ]
+  },
+  {
+    id: 10,
+    orderNumber: "ORD-2023-010",
+    userId: 6,
+    supplierId: 8,
+    createdAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 8).toISOString(),
+    updatedAt: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 8).toISOString(),
+    status: "delivered",
+    total: 280.00,
+    paymentMethod: "credit_card",
+    paymentStatus: "paid",
+    shippingAddress: {
+      street: "42 Beach Road",
+      city: "Cape Town",
+      province: "Western Cape",
+      postalCode: "8005"
+    },
+    items: [
+      {
+        productId: 8,
+        quantity: 1,
+        price: 280.00
+      }
+    ]
+  }
+];
+
 // Helper functions for formatting
 export const formatCurrency = (amount: number) => {
   return new Intl.NumberFormat('en-ZA', {
@@ -814,4 +1067,43 @@ export const formatDate = (dateString: string) => {
     month: 'short',
     day: 'numeric'
   }).format(date);
+};
+
+export const getRelativeTime = (dateString: string) => {
+  const date = new Date(dateString);
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffSecs = Math.round(diffMs / 1000);
+  const diffMins = Math.round(diffSecs / 60);
+  const diffHours = Math.round(diffMins / 60);
+  const diffDays = Math.round(diffHours / 24);
+
+  if (diffSecs < 60) {
+    return `${diffSecs} second${diffSecs !== 1 ? 's' : ''} ago`;
+  } else if (diffMins < 60) {
+    return `${diffMins} minute${diffMins !== 1 ? 's' : ''} ago`;
+  } else if (diffHours < 24) {
+    return `${diffHours} hour${diffHours !== 1 ? 's' : ''} ago`;
+  } else if (diffDays < 30) {
+    return `${diffDays} day${diffDays !== 1 ? 's' : ''} ago`;
+  } else {
+    return formatDate(dateString);
+  }
+};
+
+export const getActivityColor = (activityType: string) => {
+  const colors = {
+    product_added: 'bg-green-100 text-green-800',
+    supplier_updated: 'bg-blue-100 text-blue-800',
+    event_created: 'bg-purple-100 text-purple-800',
+    product_updated: 'bg-yellow-100 text-yellow-800',
+    user_registered: 'bg-pink-100 text-pink-800',
+    product_deleted: 'bg-red-100 text-red-800',
+    user_role_changed: 'bg-indigo-100 text-indigo-800',
+    order_status_changed: 'bg-orange-100 text-orange-800',
+    enquiry_received: 'bg-teal-100 text-teal-800',
+    event_updated: 'bg-amber-100 text-amber-800'
+  };
+  
+  return colors[activityType as keyof typeof colors] || 'bg-gray-100 text-gray-800';
 };
