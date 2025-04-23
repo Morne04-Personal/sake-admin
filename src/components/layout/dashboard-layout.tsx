@@ -1,16 +1,15 @@
 
 import { PropsWithChildren, useState } from "react";
 import { Sidebar } from "./sidebar";
-import { Header } from "./header";
 import { ColorfulDivider } from "../ui/colorful-divider";
 
 export function DashboardLayout({ children }: PropsWithChildren) {
   const [showMobileSidebar, setShowMobileSidebar] = useState(false);
-  
+
   const toggleMobileSidebar = () => {
     setShowMobileSidebar(!showMobileSidebar);
   };
-  
+
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar - hidden on mobile unless toggled */}
@@ -19,7 +18,7 @@ export function DashboardLayout({ children }: PropsWithChildren) {
       }`}>
         <Sidebar className="h-full" />
       </div>
-      
+
       {/* Sidebar overlay */}
       {showMobileSidebar && (
         <div 
@@ -27,14 +26,16 @@ export function DashboardLayout({ children }: PropsWithChildren) {
           onClick={toggleMobileSidebar}
         ></div>
       )}
-      
+
       <div className="flex flex-col flex-1 w-full overflow-hidden">
-        <Header onMenuToggle={toggleMobileSidebar} />
-        
+        {/* No Header, just optional ColorfulDivider */}
+        <div className="block lg:hidden">
+          <ColorfulDivider />
+        </div>
         <main className="flex-1 overflow-y-auto p-4 md:p-6">
           {children}
         </main>
-        
+
         <footer className="bg-white border-t border-gray-200 py-4">
           <ColorfulDivider />
           <div className="px-4 py-3 text-center text-sm text-gray-500">
