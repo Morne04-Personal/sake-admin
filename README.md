@@ -1,73 +1,116 @@
-# Welcome to your Lovable project
 
-## Project info
+# SAKEwinkel Admin Dashboard
 
-**URL**: https://lovable.dev/projects/f7ea5148-ed25-4574-a962-eefdef551a99
+A modern admin dashboard for managing users, products, and events in the SAKEwinkel ecosystem.
 
-## How can I edit this code?
+## Tech Stack
 
-There are several ways of editing your application.
+- **Frontend Framework**: React 18 with TypeScript
+- **Build Tool**: Vite
+- **Styling**: Tailwind CSS
+- **UI Components**: shadcn/ui (Based on Radix UI primitives)
+- **Form Management**: React Hook Form with Zod validation
+- **Data Fetching**: TanStack Query (React Query)
+- **Routing**: React Router DOM
+- **Icons**: Lucide React
+- **Charts**: Recharts
+- **Toast Notifications**: Sonner
+- **Date Handling**: date-fns
 
-**Use Lovable**
+## Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/f7ea5148-ed25-4574-a962-eefdef551a99) and start prompting.
+- 🔐 User Authentication
+- 👥 User Management (CRUD operations)
+- 📦 Product Management
+- 📅 Event Management
+- 📊 Dashboard Analytics
+- 🎨 Modern, Responsive UI
+- 🌙 Light/Dark Mode Support
+- 🚀 Fast Development with Hot Module Replacement
 
-Changes made via Lovable will be committed automatically to this repo.
+## Getting Started
 
-**Use your preferred IDE**
+### Prerequisites
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+- Node.js 18+ 
+- npm or yarn package manager
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+### Installation
 
-Follow these steps:
+1. Clone the repository:
+```bash
+git clone <repository-url>
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+2. Navigate to the project directory:
+```bash
+cd sake-admin-dashboard
+```
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+3. Install dependencies:
+```bash
+npm install
+```
 
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+4. Start the development server:
+```bash
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+The application will be available at `http://localhost:8080`
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Project Structure
 
-**Use GitHub Codespaces**
+```
+src/
+├── components/         # Reusable UI components
+│   ├── forms/         # Form components
+│   ├── layout/        # Layout components
+│   └── ui/           # UI primitives
+├── hooks/             # Custom React hooks
+├── lib/              # Utilities and helpers
+├── pages/            # Page components
+└── App.tsx           # Root component
+```
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## UI Components
 
-## What technologies are used for this project?
+The project uses shadcn/ui, which provides a collection of customizable, accessible, and type-safe UI components built on top of Radix UI primitives.
 
-This project is built with:
+Key components include:
+- Dialog
+- Toast notifications
+- Tables
+- Forms
+- Buttons
+- Input fields
+- and more...
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Development
 
-## How can I deploy this project?
+### Code Style
 
-Simply open [Lovable](https://lovable.dev/projects/f7ea5148-ed25-4574-a962-eefdef551a99) and click on Share -> Publish.
+- TypeScript for type safety
+- ESLint for code linting
+- Prettier for code formatting
 
-## Can I connect a custom domain to my Lovable project?
+### Best Practices
 
-Yes, you can!
+- Component-based architecture
+- Type-safe development with TypeScript
+- Responsive design using Tailwind CSS
+- Modular and reusable components
+- Proper state management
+- Form validation with Zod
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+## License
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Acknowledgments
+
+- [shadcn/ui](https://ui.shadcn.com) for the UI component system
+- [Tailwind CSS](https://tailwindcss.com) for the utility-first CSS framework
+- [Radix UI](https://www.radix-ui.com) for accessible UI primitives
+- [Lucide](https://lucide.dev) for beautiful icons
+
