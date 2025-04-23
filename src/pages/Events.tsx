@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/layout/page-header";
@@ -19,12 +18,31 @@ import { formatCurrency, formatDate, getEventStatus } from "@/lib/utils";
 import { events } from "@/lib/mock-data";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { EventForm } from "@/components/forms/EventForm";
 import {
   Tabs,
   TabsContent,
   TabsList,
   TabsTrigger,
 } from "@/components/ui/tabs";
+
+type Event = {
+  id: number;
+  name: string;
+  startDate: string;
+  endDate: string;
+  city: string;
+  venue: string;
+  description?: string;
+  originalPrice: number;
+  salePrice?: number;
+  address: string;
+  thumbnail?: string;
+  featured: boolean;
+  ticketUrl: string;
+  created: string;
+  updated: string;
+};
 
 const Events = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -34,17 +52,17 @@ const Events = () => {
   const [featuredOnly, setFeaturedOnly] = useState(false);
   const [viewEventId, setViewEventId] = useState<number | null>(null);
   const [deleteEventId, setDeleteEventId] = useState<number | null>(null);
+  const [addEventOpen, setAddEventOpen] = useState(false);
+  const [editEventId, setEditEventId] = useState<number | null>(null);
   
   const { toast } = useToast();
   
   const filteredEvents = events.filter((event) => {
-    // Search term filter
     const searchMatch = searchTerm === "" || 
       event.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       event.city.toLowerCase().includes(searchTerm.toLowerCase()) ||
       event.venue.toLowerCase().includes(searchTerm.toLowerCase());
     
-    // Status filter
     const now = new Date();
     const start = new Date(event.startDate);
     const end = new Date(event.endDate);
@@ -58,7 +76,6 @@ const Events = () => {
       statusMatch = now > end;
     }
     
-    // Featured filter
     const featuredMatch = !featuredOnly || event.featured;
     
     return searchMatch && statusMatch && featuredMatch;
@@ -77,6 +94,22 @@ const Events = () => {
     setDeleteEventId(null);
   };
   
+  const handleAddEvent = (data: any) => {
+    toast({
+      title: "Event created",
+      description: "The new event has been successfully created.",
+    });
+    setAddEventOpen(false);
+  };
+  
+  const handleEditEvent = (data: any) => {
+    toast({
+      title: "Event updated",
+      description: "The event has been successfully updated.",
+    });
+    setEditEventId(null);
+  };
+  
   const viewingEvent = viewEventId !== null 
     ? events.find(e => e.id === viewEventId) 
     : null;
@@ -85,13 +118,20 @@ const Events = () => {
     ? events.find(e => e.id === deleteEventId)
     : null;
 
+  const editingEvent = editEventId !== null
+    ? events.find(e => e.id === editEventId)
+    : null;
+
   return (
     <DashboardLayout>
       <PageHeader 
         title="Events Management" 
         description="View, add, edit, and delete events"
       >
-        <Button className="sake-button-primary flex items-center">
+        <Button 
+          className="sake-button-primary flex items-center"
+          onClick={() => setAddEventOpen(true)}
+        >
           <Plus size={16} className="mr-1" /> Add Event
         </Button>
       </PageHeader>
@@ -277,7 +317,11 @@ const Events = () => {
                           >
                             <Eye size={16} />
                           </Button>
-                          <Button size="sm" variant="ghost">
+                          <Button 
+                            size="sm" 
+                            variant="ghost"
+                            onClick={() => setEditEventId(event.id)}
+                          >
                             <Edit size={16} />
                           </Button>
                           <Button 
@@ -328,7 +372,6 @@ const Events = () => {
         </div>
       </div>
       
-      {/* Event Details Dialog */}
       <Dialog open={viewEventId !== null} onOpenChange={(open) => !open && setViewEventId(null)}>
         <DialogContent className="max-w-4xl">
           <DialogHeader>
@@ -435,12 +478,48 @@ const Events = () => {
             <Button variant="outline" onClick={() => setViewEventId(null)}>
               Close
             </Button>
-            <Button>Edit Event</Button>
+            <Button onClick={() => {
+              setViewEventId(null);
+              setEditEventId(viewingEvent?.id || null);
+            }}>
+              Edit Event
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
       
-      {/* Delete Confirmation Dialog */}
+      <Dialog open={addEventOpen} onOpenChange={setAddEventOpen}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle>Add New Event</DialogTitle>
+          </DialogHeader>
+          <EventForm onSubmit={handleAddEvent} />
+        </DialogContent>
+      </Dialog>
+      
+      <Dialog open={editEventId !== null} onOpenChange={(open) => !open && setEditEventId(null)}>
+        <DialogContent className="max-w-4xl">
+          <DialogHeader>
+            <DialogTitle>Edit Event</DialogTitle>
+          </DialogHeader>
+          {editingEvent && (
+            <EventForm 
+              onSubmit={handleEditEvent} 
+              defaultValues={{
+                name: editingEvent.name,
+                startDate: editingEvent.startDate,
+                endDate: editingEvent.endDate,
+                city: editingEvent.city,
+                venue: editingEvent.venue,
+                description: editingEvent.description || '',
+                originalPrice: editingEvent.originalPrice,
+                salePrice: editingEvent.salePrice || undefined,
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+      
       <Dialog open={deleteEventId !== null} onOpenChange={(open) => !open && setDeleteEventId(null)}>
         <DialogContent className="max-w-md">
           <DialogHeader>

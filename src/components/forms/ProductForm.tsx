@@ -3,8 +3,9 @@ import { useForm } from "react-hook-form";
 import { Form, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { useEffect } from "react";
 
-type ProductFormData = {
+export type ProductFormData = {
   name: string;
   originalPrice: number;
   salePrice?: number;
@@ -12,8 +13,30 @@ type ProductFormData = {
   description?: string;
 };
 
-export function ProductForm({ onSubmit }: { onSubmit?: (data: ProductFormData) => void }) {
-  const form = useForm<ProductFormData>();
+interface ProductFormProps {
+  onSubmit?: (data: ProductFormData) => void;
+  defaultValues?: Partial<ProductFormData>;
+}
+
+export function ProductForm({ onSubmit, defaultValues }: ProductFormProps) {
+  const form = useForm<ProductFormData>({
+    defaultValues: defaultValues || {
+      name: "",
+      originalPrice: 0,
+      salePrice: undefined,
+      stockQuantity: 0,
+      description: ""
+    }
+  });
+
+  // Update form when defaultValues change (when editing)
+  useEffect(() => {
+    if (defaultValues) {
+      Object.entries(defaultValues).forEach(([key, value]) => {
+        form.setValue(key as any, value);
+      });
+    }
+  }, [defaultValues, form]);
 
   return (
     <Form {...form}>
@@ -21,28 +44,36 @@ export function ProductForm({ onSubmit }: { onSubmit?: (data: ProductFormData) =
         <FormItem>
           <FormLabel>Name</FormLabel>
           <FormControl>
-            <Input {...form.register("name", { required: true })} />
+            <Input {...form.register("name", { required: "Name is required" })} />
           </FormControl>
           <FormMessage />
         </FormItem>
         <FormItem>
           <FormLabel>Original Price</FormLabel>
           <FormControl>
-            <Input type="number" step="0.01" {...form.register("originalPrice", { required: true })} />
+            <Input type="number" step="0.01" {...form.register("originalPrice", { 
+              required: "Original price is required",
+              valueAsNumber: true 
+            })} />
           </FormControl>
           <FormMessage />
         </FormItem>
         <FormItem>
           <FormLabel>Sale Price</FormLabel>
           <FormControl>
-            <Input type="number" step="0.01" {...form.register("salePrice")} />
+            <Input type="number" step="0.01" {...form.register("salePrice", { 
+              valueAsNumber: true 
+            })} />
           </FormControl>
           <FormMessage />
         </FormItem>
         <FormItem>
           <FormLabel>Stock Quantity</FormLabel>
           <FormControl>
-            <Input type="number" {...form.register("stockQuantity", { required: true })} />
+            <Input type="number" {...form.register("stockQuantity", { 
+              required: "Stock quantity is required",
+              valueAsNumber: true 
+            })} />
           </FormControl>
           <FormMessage />
         </FormItem>

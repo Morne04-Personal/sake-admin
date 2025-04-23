@@ -15,8 +15,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Switch } from "@/components/ui/switch";
 import { formatCurrency, getStockStatus } from "@/lib/utils";
 import { products, suppliers } from "@/lib/mock-data";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose, DialogFooter } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
+import { ProductForm, ProductFormData } from "@/components/forms/ProductForm";
 
 const Products = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,33 +30,30 @@ const Products = () => {
   const [featuredOnly, setFeaturedOnly] = useState(false);
   const [viewProductId, setViewProductId] = useState<number | null>(null);
   const [deleteProductId, setDeleteProductId] = useState<number | null>(null);
+  const [addProductOpen, setAddProductOpen] = useState(false);
+  const [editProductId, setEditProductId] = useState<number | null>(null);
   
   const { toast } = useToast();
   
   const filteredProducts = products.filter((product) => {
-    // Search term filter
     const searchMatch = searchTerm === "" || 
       product.name.toLowerCase().includes(searchTerm.toLowerCase());
     
-    // Supplier filter
     const supplierMatch = selectedSupplierId === "" || 
       product.supplierId === parseInt(selectedSupplierId);
     
-    // Price range filter
     const priceMinMatch = priceMin === "" || 
       (product.salePrice ?? product.originalPrice) >= parseFloat(priceMin);
     
     const priceMaxMatch = priceMax === "" || 
       (product.salePrice ?? product.originalPrice) <= parseFloat(priceMax);
     
-    // Stock status filter
     const stockMatch = stockStatus === "" || (
       (stockStatus === "in-stock" && product.stockQuantity > 10) ||
       (stockStatus === "low-stock" && product.stockQuantity > 0 && product.stockQuantity <= 10) ||
       (stockStatus === "out-of-stock" && product.stockQuantity === 0)
     );
     
-    // Featured filter
     const featuredMatch = !featuredOnly || product.onHomepage;
     
     return searchMatch && supplierMatch && priceMinMatch && 
@@ -77,6 +75,22 @@ const Products = () => {
     });
     setDeleteProductId(null);
   };
+
+  const handleAddProduct = (data: ProductFormData) => {
+    toast({
+      title: "Product added",
+      description: "The product has been successfully added.",
+    });
+    setAddProductOpen(false);
+  };
+
+  const handleEditProduct = (data: ProductFormData) => {
+    toast({
+      title: "Product updated",
+      description: "The product has been successfully updated.",
+    });
+    setEditProductId(null);
+  };
   
   const viewingProduct = viewProductId !== null 
     ? products.find(p => p.id === viewProductId) 
@@ -86,13 +100,20 @@ const Products = () => {
     ? products.find(p => p.id === deleteProductId)
     : null;
 
+  const editingProduct = editProductId !== null
+    ? products.find(p => p.id === editProductId)
+    : null;
+
   return (
     <DashboardLayout>
       <PageHeader 
         title="Products Management" 
         description="View, add, edit, and delete products"
       >
-        <Button className="sake-button-primary flex items-center">
+        <Button 
+          className="sake-button-primary flex items-center"
+          onClick={() => setAddProductOpen(true)}
+        >
           <Plus size={16} className="mr-1" /> Add Product
         </Button>
       </PageHeader>
@@ -306,7 +327,11 @@ const Products = () => {
                         >
                           <Eye size={16} />
                         </Button>
-                        <Button size="sm" variant="ghost">
+                        <Button 
+                          size="sm" 
+                          variant="ghost"
+                          onClick={() => setEditProductId(product.id)}
+                        >
                           <Edit size={16} />
                         </Button>
                         <Button 
@@ -349,7 +374,6 @@ const Products = () => {
         </div>
       </div>
       
-      {/* Product Details Dialog */}
       <Dialog open={viewProductId !== null} onOpenChange={(open) => !open && setViewProductId(null)}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
@@ -453,12 +477,45 @@ const Products = () => {
             <Button variant="outline" onClick={() => setViewProductId(null)}>
               Close
             </Button>
-            <Button>Edit Product</Button>
+            <Button onClick={() => {
+              setViewProductId(null);
+              setEditProductId(viewingProduct?.id || null);
+            }}>
+              Edit Product
+            </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
       
-      {/* Delete Confirmation Dialog */}
+      <Dialog open={addProductOpen} onOpenChange={setAddProductOpen}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Add New Product</DialogTitle>
+          </DialogHeader>
+          <ProductForm onSubmit={handleAddProduct} />
+        </DialogContent>
+      </Dialog>
+      
+      <Dialog open={editProductId !== null} onOpenChange={(open) => !open && setEditProductId(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Edit Product</DialogTitle>
+          </DialogHeader>
+          {editingProduct && (
+            <ProductForm 
+              onSubmit={handleEditProduct} 
+              defaultValues={{
+                name: editingProduct.name,
+                originalPrice: editingProduct.originalPrice,
+                salePrice: editingProduct.salePrice,
+                stockQuantity: editingProduct.stockQuantity,
+                description: editingProduct.description || '',
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
+      
       <Dialog open={deleteProductId !== null} onOpenChange={(open) => !open && setDeleteProductId(null)}>
         <DialogContent className="max-w-md">
           <DialogHeader>
@@ -501,7 +558,6 @@ const Products = () => {
           </DialogFooter>
         </DialogContent>
       </Dialog>
-      
     </DashboardLayout>
   );
 };
