@@ -1,10 +1,11 @@
-
 import { useState } from "react";
 import { DashboardLayout } from "@/components/layout/dashboard-layout";
 import { PageHeader } from "@/components/layout/page-header";
 import { Button } from "@/components/ui/button";
 import { ColorfulDivider } from "@/components/ui/colorful-divider";
-import { Search, Plus, Filter, FileDown, Edit, Eye, Trash2, X } from "lucide-react";
+import { 
+  Search, Plus, Filter, FileDown, Edit, Eye, Trash2, X, Package 
+} from "lucide-react";
 import { Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from "@/components/ui/table";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
